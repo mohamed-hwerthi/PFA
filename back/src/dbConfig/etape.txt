@@ -1,0 +1,27 @@
+03-04-2023 : 
+     +++-authentification de l'administrateur interne de la societe
+     +++ _get tous les employes de la societe 
+     +++ -supprimer un employe
+     +++  -ajouter un employes  : l'ajout  se fait par l'administrateur de la societe et il envoit un mail contenant
+       le mot de passe pour l'employee ("pas d'envoi de mail "  )
+
+     +++chercher les employes par disponibilite 
+
+
+
++++*chercher les employes  selon les criteres : 
+                      -skills 
+                      -experience en skills
+                      -disponibilite 
+ *get la liste des missios dans une societe interne
+  *affecter un employees a une mission 
+
+
+     *getAllMission : 
+      *getMission with id  : 
+      *supprimer mission  :
+      *affecter une mission a un employe  : 
+      *rechercher les employes pour une mission suivant  : -les skills dans la mission +role 
+      *regler  envoi de mail  :
+
+       
