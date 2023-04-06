@@ -28,7 +28,7 @@ export class SkillsService {
     console.log(skill);
     return skill;
   }
-  //find employe skills  :
+  //find employe skills  ://hobbi nader
   async findEmployeSkills(idEmploye: number) {
     const querry = `SELECT skills.id , skills.name FROM skills , employe_skills_skills , employe WHERE skills.id=employe_skills_skills.skillsId and employe.idEmploye = employe_skills_skills.employeIdEmploye AND employe.idEmploye =${idEmploye};`;
     return await this.skillRepositry.query(querry);
