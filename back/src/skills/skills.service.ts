@@ -14,6 +14,7 @@ export class SkillsService {
   async findAllSkills(): Promise<Skills[]> {
     const allSkills = await this.skillRepositry.find();
     return allSkills;
+    /* jskljdfljsdklfjl */
   }
 
   //find a skill with  name  :
