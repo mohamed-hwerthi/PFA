@@ -1,0 +1,14 @@
+.hamma {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 25%;
+  transform: translateY(-80px);
+}
+.dada {
+  margin-left: 45%;
+  width: 100px;
+  transform: translateY(-80px);
+}
+.fafa {
+  margin-top: 200px;
+}

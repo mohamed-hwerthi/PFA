@@ -2,7 +2,7 @@ import { MailerService } from "@nestjs-modules/mailer";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Employe } from "src/dbConfig/employe.entity";
-import { Repository } from "typeorm";
+import { Repository, UpdateEvent } from "typeorm";
 import { uuid } from "uuidv4";
 
 @Injectable()
@@ -95,5 +95,18 @@ export class EmployeService {
     const querry = `SELECT e.* FROM employe e INNER JOIN employee_skills es ON es.idEmploye = e.idEmploye INNER JOIN skills s ON s.id = es.idSkill WHERE s.id = 4 AND es.experience >= 2 AND e.enMission = 0;`;
     const employees = await this.employeRepositry.query(querry);
     return employees;
+  }
+
+  //update an employe  :
+  async updatedEmploye(id, body) {
+    const EmployeToUpdate = await this.employeRepositry.findOneBy({
+      idEmploye: id,
+    });
+    EmployeToUpdate.username = body.username;
+    EmployeToUpdate.email = body.email;
+    EmployeToUpdate.titre = body.titre;
+    EmployeToUpdate.role = body.role;
+    EmployeToUpdate.salaire = body.salaire;
+    await this.employeRepositry.save(EmployeToUpdate);
   }
 }

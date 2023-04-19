@@ -1,0 +1,28 @@
+.dashbordTop {
+  z-index: 9999;
+  background-color: red;
+}
+.TopNabar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.serachinput {
+  margin-left: 300px;
+   
+}
+.navbarLeft {
+  margin-top: 10px;
+  float: right;
+  margin-left: 15%;
+  display: flex;
+  flex-direction: row;
+}
+.navbarProfileIcon {
+  margin-top: 10px;
+  margin-left: 15%;
+}
+.iconitem {
+  justify-content: space-around;
+  margin-left: 20px;
+}
