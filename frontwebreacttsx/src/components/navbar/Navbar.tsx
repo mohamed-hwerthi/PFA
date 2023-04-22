@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SearchInput from "../searchInput/SearchInput";
@@ -6,6 +6,9 @@ import "./Navbar.css";
 import { navbarPropsType } from "./navbarUtils";
 
 function Navbar({ activatedLink, setActivatedNavLink }: navbarPropsType) {
+  //states :
+  const [SearchInputhandel, setSearchInputhandel] = useState("");
+
   const navRef = useRef<HTMLDivElement>(null);
   const showNavbar = () => {
     navRef.current?.classList.toggle("responsive_nav");
@@ -14,7 +17,10 @@ function Navbar({ activatedLink, setActivatedNavLink }: navbarPropsType) {
   return (
     <header style={{ backgroundColor: "#0D6EFD", position: "fixed", top: "0" }}>
       <h3>LOGO</h3>
-      <SearchInput />
+      <SearchInput
+        SearchInputhandel={SearchInputhandel}
+        setSearchInputhandel={setSearchInputhandel}
+      />
 
       <nav ref={navRef}>
         <a onClick={() => setActivatedNavLink("ressource")}>

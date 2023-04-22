@@ -17,3 +17,6 @@
     transform: none;
   }
 }
+a:hover {
+  color: green;
+}

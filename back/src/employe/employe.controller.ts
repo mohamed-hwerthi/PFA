@@ -1,14 +1,26 @@
+import * as fs from "fs";
+const path = import("path");
+
 import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   Post,
   Put,
+  Res,
+  UploadedFile,
+  UseInterceptors,
 } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
 import { Employe } from "src/dbConfig/employe.entity";
 import { EmployeService } from "./employe.service";
+import express, { Response } from "express";
+import { diskStorage } from "multer";
 
 @Controller("employe")
 export class EmployeController {
@@ -76,5 +88,31 @@ export class EmployeController {
     return this.employeService.updatedEmploye(id, body);
   }
 
+  //uploading CV :
+  @Post("uploadCv")
+  @UseInterceptors(
+    FileInterceptor("file", {
+      storage: diskStorage({
+        destination: "../files/cv",
+        filename(req, file, callback) {
+          console.log(file.originalname);
+          const newFileName = file.originalname;
+          console.log(newFileName);
+          callback(null, newFileName);
+        },
+      }),
+    })
+  )
+  uploadFile(
+    @UploadedFile(new ParseFilePipe({}))
+    file: Express.Multer.File
+  ) {
+    console.log(file);
+  }
 
+  //getting Cv :
+  @Get("get-files/:filename")
+  async getFile(@Param("filename") filename, @Res() res: Response) {
+    res.sendFile(filename, { root: "../files/cv" });
+  }
 }

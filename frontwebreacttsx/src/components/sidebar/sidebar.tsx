@@ -7,7 +7,6 @@ import { navbarPropsType } from "./sidebarUtils";
 
 const sidebar = ({ activatedLink, setActivatedNavLink }: navbarPropsType) => {
   const sidebarToHandel = () => {
-    console.log("sdfjksdljflkj");
     switch (activatedLink) {
       case "ressource":
         return <SidebarRessource />;

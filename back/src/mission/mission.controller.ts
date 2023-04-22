@@ -1,5 +1,18 @@
-import { Controller, Delete, Get, Param, Put } from "@nestjs/common";
-import { async } from "rxjs";
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseFilePipe,
+  Post,
+  Put,
+  Res,
+  UploadedFile,
+  UseInterceptors,
+} from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { Response } from "express";
+import { diskStorage } from "multer";
 import { Mission } from "src/dbConfig/mission.entity";
 import { DeleteResult, UpdateEvent } from "typeorm";
 import { MissionService } from "./mission.service";
@@ -51,5 +64,32 @@ export class MissionController {
   @Put("terminer-mission/med/:id")
   async terminerMission(@Param("id") id: number): Promise<Mission> {
     return this.missionService.terminerMission(id);
+  }
+
+  //uploading file  : note sur missions  :
+
+  @Post("note/noteM")
+  @UseInterceptors(
+    FileInterceptor("file", {
+      storage: diskStorage({
+        destination: "../files/noteMission",
+        filename(req, file, callback) {
+          const newFileName = file.originalname;
+          callback(null, newFileName);
+        },
+      }),
+    })
+  )
+  uploadFile(
+    @UploadedFile(new ParseFilePipe({}))
+    file: Express.Multer.File
+  ) {
+    console.log("s,jfdlasjflkjsl");
+    console.log(file);
+  }
+  //getting file  : note sur mission  :
+  @Get("getMissionNote/:filename")
+  async getFile(@Param("filename") filename: string, @Res() res: Response) {
+    res.sendFile(filename, { root: "../files/noteMission" });
   }
 }

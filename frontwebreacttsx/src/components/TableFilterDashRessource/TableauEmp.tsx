@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import FilterSidebar from "../FilterSidebar/FilterSidebar";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -9,12 +9,15 @@ import { Employe } from "../../api/Employe/EmployeModel";
 import { useQuery } from "react-query";
 import { EmployeService } from "../../api/Employe/EmployeApi";
 import SuccessAlert from "../alert/alert";
+import { Search } from "@mui/icons-material";
+import SearchInput from "../searchInput/SearchInput";
 
 function TableFilterEmp() {
   let employeService: EmployeService = new EmployeService();
   /* __________________________________________________________________________ */
 
   //states  :
+  const [searchInput, setSearchInput] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [allEmployees, setAllEmployees] = useState<Employe[] | undefined>([]);
   const [show, setShow] = useState(false);
@@ -112,6 +115,15 @@ function TableFilterEmp() {
     setShowFilterSidebar(!showFilterSidebar);
   };
 
+  const filteredEmployees = allEmployees
+    ? allEmployees.filter((employee) =>
+        employee.username
+          ? employee.username
+              .toLowerCase()
+              .startsWith(searchInput.toLowerCase())
+          : console.log("employe.username is not defined")
+      )
+    : console.log("all employees is not defined");
   /* JSX _________________________________________________________________________________ */
 
   return (
@@ -135,18 +147,13 @@ function TableFilterEmp() {
             className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred"
             style={{ color: "green" }}
           >
-            <Button
-              variant="primary"
-              className="hhh"
-              onClick={() => handelFilterSidebar()}
-            >
-              Filter
-            </Button>
-            {showFilterSidebar && (
-              <div style={{ transform: "translateX(-500px)" }}>
-                <FilterSidebar />
-              </div>
-            )}
+            <div className="searchInputDashEmp">
+              <SearchInput
+                SearchInputhandel={searchInput}
+                setSearchInputhandel={setSearchInput}
+              />
+            </div>
+
             <h2>
               <b className="Table-title">Employees Details </b>
             </h2>
@@ -182,7 +189,7 @@ function TableFilterEmp() {
                 </tr>
               </thead>
               <tbody>
-                {allEmployees?.map((e: Employe) => {
+                {filteredEmployees?.map((e: Employe) => {
                   return (
                     <tr>
                       <td>{e.idEmploye}</td>

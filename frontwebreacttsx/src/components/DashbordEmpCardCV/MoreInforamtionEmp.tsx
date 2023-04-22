@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { EmployeService } from "../../api/Employe/EmployeApi";
 import { Employe } from "../../api/Employe/EmployeModel";
@@ -11,6 +11,7 @@ const DashboradEmpCardCV = () => {
 
   //states :
   const [allEmployees, setAllEmployees] = useState<Employe[] | undefined>([]);
+  const [SearchInputhandel, setSearchInputhandel] = useState("");
 
   //api :
   const {
@@ -24,14 +25,34 @@ const DashboradEmpCardCV = () => {
   });
 
   //functions  :
+  //filter employees with searching  :
+  const handleSearchInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchInputhandel(event.target.value);
+  };
+
+  const filteredEmployees = allEmployees
+    ? allEmployees.filter((employee) =>
+        employee.username
+          ? employee.username
+              .toLowerCase()
+              .startsWith(SearchInputhandel.toLowerCase())
+          : console.log("employe.username is not defined")
+      )
+    : console.log("all employees is not defined");
 
   return (
     <div className="fafa">
       <div className="dada">
-        <SearchInput />
+        <SearchInput
+          SearchInputhandel={SearchInputhandel}
+          setSearchInputhandel={setSearchInputhandel}
+        />       
       </div>
+
       <div className="hamma">
-        {allEmployees?.map((e) => {
+        {filteredEmployees?.map((e) => {
           return <EmployecardCV employeObject={e} key={e.idEmploye} />;
         })}
       </div>

@@ -5,10 +5,10 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Employe } from './employe.entity';
-import { Skills } from './skills.entity';
-import { SocieteInterne } from './societeInterne.entity';
+} from "typeorm";
+import { Employe } from "./employe.entity";
+import { Skills } from "./skills.entity";
+import { SocieteInterne } from "./societeInterne.entity";
 
 @Entity()
 export class Mission {
@@ -16,19 +16,21 @@ export class Mission {
   id: number;
   @Column()
   description: string;
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   dateDebut: Date;
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   dateFin: Date;
   @Column({
-    type: 'enum',
-    enum: ['en attente', 'en cours', 'terminée', 'annulée'],
+    type: "enum",
+    enum: ["en attente", "en cours", "terminée", "annulée"],
   })
   statutMission: string;
   @Column()
   budjet: number;
   @Column()
   commentaireMission: string;
+  @Column()
+  noteMission: string;
   @Column()
   documetationMission: string;
 

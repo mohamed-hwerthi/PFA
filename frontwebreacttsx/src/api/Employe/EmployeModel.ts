@@ -8,4 +8,5 @@ export interface Employe {
   role?: string;
   salaire?: string;
   enMission?: boolean;
+  cv?: string;
 }

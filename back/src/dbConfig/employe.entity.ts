@@ -5,10 +5,10 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Mission } from './mission.entity';
-import { Skills } from './skills.entity';
-import { SocieteInterne } from './societeInterne.entity';
+} from "typeorm";
+import { Mission } from "./mission.entity";
+import { Skills } from "./skills.entity";
+import { SocieteInterne } from "./societeInterne.entity";
 
 @Entity()
 export class Employe {
@@ -24,6 +24,8 @@ export class Employe {
   titre: string;
   @Column()
   salaire: number;
+  @Column()
+  cv: string;
   @Column()
   experience: number;
   @Column({ default: false })
